@@ -1,3 +1,11 @@
 <resources>
     <string name="app_name">GameQu</string>
+    <string name="game">Game</string>
+    <string name="search">Search</string>
+    <string name="favorite">Favorite</string>
+    <string name="imggame">imgGame</string>
+    <string name="place_holder_text">Text Place Holder</string>
+    <string name="information">Description :</string>
+    <string name="favoritetoggle">favoriteToggle</string>
+    <string name="text_network_error">Please retry your connection</string>
 </resources>
