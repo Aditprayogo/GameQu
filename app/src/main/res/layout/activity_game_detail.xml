@@ -110,5 +110,10 @@
         app:tint="@color/white"
         android:contentDescription="@string/favoritetoggle" />
 
+    <ProgressBar
+        android:id="@+id/progressBar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"/>
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

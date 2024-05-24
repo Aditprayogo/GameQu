@@ -117,8 +117,10 @@ class GameDetailActivity : AppCompatActivity() {
     private fun handleLoadingState(it: LoaderState) {
         if (it is LoaderState.ShowLoading) {
             binding.floatingIcon.setGone()
+            binding.progressBar.setVisible()
         } else {
             binding.floatingIcon.setVisible()
+            binding.progressBar.setGone()
         }
     }
 

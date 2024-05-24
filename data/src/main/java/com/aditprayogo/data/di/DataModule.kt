@@ -1,6 +1,7 @@
 package com.aditprayogo.data.di
 
 import android.app.Application
+import android.content.Context
 import androidx.room.Room
 import com.aditprayogo.core.utils.GAME_DB
 import com.aditprayogo.data.local.dao.GameDao
@@ -10,6 +11,7 @@ import com.aditprayogo.data.remote.network.RetrofitConfig
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
+import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 import javax.inject.Singleton
 
@@ -22,8 +24,8 @@ object DataModule {
 
     @Provides
     @Singleton
-    fun provideGameService(): GameService =
-        RetrofitConfig.retrofitClient().create(GameService::class.java)
+    fun provideGameService(@ApplicationContext context: Context): GameService =
+        RetrofitConfig.retrofitClient(context).create(GameService::class.java)
 
     @Provides
     @Singleton

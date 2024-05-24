@@ -1,6 +1,8 @@
 package com.aditprayogo.data.remote.network
 
+import android.content.Context
 import com.aditprayogo.data.BuildConfig
+import com.chuckerteam.chucker.api.ChuckerInterceptor
 import com.jakewharton.retrofit2.adapter.kotlin.coroutines.CoroutineCallAdapterFactory
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
@@ -13,16 +15,18 @@ import java.util.concurrent.TimeUnit
  */
 object RetrofitConfig {
 
-    fun retrofitClient(url: String = BuildConfig.BASE_URL): Retrofit {
+    fun retrofitClient(context: Context, url: String = BuildConfig.BASE_URL): Retrofit {
         return Retrofit.Builder()
             .baseUrl(url)
             .addCallAdapterFactory(CoroutineCallAdapterFactory())
             .addConverterFactory(GsonConverterFactory.create())
-            .client(okHttpClient())
+            .client(okHttpClient(context))
             .build()
     }
 
-    private fun okHttpClient() : OkHttpClient {
+    private fun okHttpClient(context: Context): OkHttpClient {
+        val chuckerInterceptor = ChuckerInterceptor.Builder(context).build()
+
         return OkHttpClient.Builder()
             .addInterceptor { chain ->
                 var original = chain.request()
@@ -37,11 +41,11 @@ object RetrofitConfig {
                 chain.proceed(original)
             }
             .addInterceptor(HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY))
+            .addInterceptor(chuckerInterceptor) // Add Chucker Interceptor
             .connectTimeout(120, TimeUnit.SECONDS)
             .readTimeout(120, TimeUnit.SECONDS)
             .build()
     }
-
 
 
 }
